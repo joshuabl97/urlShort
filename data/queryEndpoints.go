@@ -31,7 +31,7 @@ func GetEndpoints(l *zerolog.Logger, db *sql.DB) map[string]string {
 	return m
 }
 
-// returns false if the endpoint is not found and returns an error if there is an error with the query
+// returns false if the endpoint is not found
 func CheckEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string) (bool, string) {
 	var url string
 	err := db.QueryRow("SELECT url FROM endpoints WHERE endpoint = ?", endpoint).Scan(&url)
