@@ -42,7 +42,7 @@ As a bonus exercises you can also...
 
 ## Exercise modifications
 
-I've modified the example for this gophercises exercise to use the Chi router instead of Gorilla Mux. I also plan on combining the YAML/JSON data to be stored into the SQL (or other) database into a map that is handled by a single handler. 
+I've modified the example for this gophercises exercise to use the Chi router instead of Gorilla Mux. I also plan on combining the YAML/JSON data to be stored into the sqlite database that is handled by a single handler. 
 
 [chi router](https://github.com/go-chi/chi)
 
