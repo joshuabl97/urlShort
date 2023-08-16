@@ -20,7 +20,6 @@ func MakeDb(l *zerolog.Logger) (*sql.DB, error) {
 
 	_, err = db.Exec(`
     CREATE TABLE IF NOT EXISTS endpoints (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
         endpoint TEXT,
         url TEXT
     )
