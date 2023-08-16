@@ -14,11 +14,12 @@ type HandlerHelper struct {
 	db *sql.DB
 }
 
-// NewProducts creates a products handler with the given logger
+// creates a handler helper
 func NewHandlerHelper(l *zerolog.Logger, db *sql.DB) *HandlerHelper {
 	return &HandlerHelper{l, db}
 }
 
+// redirects the user to the endpoint specified in the url/path
 func (h *HandlerHelper) Redirect(w http.ResponseWriter, r *http.Request) {
 	endpoint := chi.URLParam(r, "endpoint")
 	h.l.Info().Msg("Endpoint: " + endpoint + " being processed")
