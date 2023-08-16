@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func AddToDB(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*sql.DB, error) {
+func AddEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*sql.DB, error) {
 	// Check if the endpoint and URL already exist in the database
 	var count int
 	err := db.QueryRow("SELECT COUNT(*) FROM endpoints WHERE endpoint = ? OR url = ?", endpoint, url).Scan(&count)

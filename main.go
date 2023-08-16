@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/joshuabl97/urlShort/data"
+	"github.com/joshuabl97/urlShort/handler"
 	"github.com/rs/zerolog"
 )
 
@@ -42,13 +43,17 @@ func main() {
 	defer db.Close()
 
 	// add endpoints to db
-	db, _ = data.AddToDB(&l, db, "example1", "https://wwww.google.com")
+	db, _ = data.AddEndpoint(&l, db, "example1", "https://wwww.google.com")
 
 	// test to see if endpoints were generated in db
 	_ = data.GetEndpoints(&l, db)
 
+	// creating handler struct for redirect handler
+	rh := handler.NewHandlerHelper(&l, db)
+
 	// registering the handlers on the serve mux (sm)
 	sm := chi.NewRouter()
+	sm.Get("/{endpoint}", rh.Redirect)
 
 	// create a new server
 	s := http.Server{
