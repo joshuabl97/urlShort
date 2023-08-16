@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -16,8 +15,6 @@ import (
 )
 
 func main() {
-	fmt.Println("test")
-
 	// instantiate logger
 	l := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	// setting timezone
