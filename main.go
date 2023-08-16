@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/joshuabl97/urlShort/data"
 	"github.com/rs/zerolog"
 )
 
@@ -31,6 +32,20 @@ func main() {
 
 	// create a custom logger that wraps the zerolog.Logger we instantiated/customized above
 	errorLog := &zerologLogger{l}
+
+	// instantiate sqlite db
+	db, err := data.MakeDb(&l)
+	if err != nil {
+		l.Fatal().Err(err).Msg("Error Creating DB... ")
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	// add endpoints to db
+	db, _ = data.AddToDB(&l, db, "example1", "https://wwww.google.com")
+
+	// test to see if endpoints were generated in db
+	_ = data.GetEndpoints(&l, db)
 
 	// registering the handlers on the serve mux (sm)
 	sm := chi.NewRouter()
@@ -69,7 +84,7 @@ func main() {
 	timeoutCtx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	err = s.Shutdown(timeoutCtx)
 	if err != nil {
-		l.Fatal().Msg("We wanted to shut down anyway")
+		l.Fatal().Msg("Shutdown exceeded timeout")
 	}
 }
 
