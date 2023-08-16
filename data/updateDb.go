@@ -16,7 +16,10 @@ func AddEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*s
 	}
 
 	if count > 0 {
-		l.Info().Msg("Endpoint or URL already exists in the database")
+		l.Info().
+			Str("Endpoint", endpoint).
+			Str("URL", url).
+			Msg("Endpoint or URL already exists in the database")
 		return db, nil
 	}
 

@@ -30,3 +30,20 @@ func GetEndpoints(l *zerolog.Logger, db *sql.DB) map[string]string {
 
 	return m
 }
+
+// returns false if the endpoint is not found and returns an error if there is an error with the query
+func CheckEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string) (bool, string) {
+	var url string
+	err := db.QueryRow("SELECT url FROM endpoints WHERE endpoint = ?", endpoint).Scan(&url)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// Username not found
+			return false, ""
+		}
+		l.Error().Err(err).Msg("Error checking username existence")
+		return false, ""
+	}
+
+	// Username found
+	return true, url
+}

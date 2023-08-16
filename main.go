@@ -43,7 +43,7 @@ func main() {
 	defer db.Close()
 
 	// add endpoints to db
-	db, _ = data.AddEndpoint(&l, db, "example1", "https://wwww.google.com")
+	db, _ = data.AddEndpoint(&l, db, "example1", "https://www.google.com")
 
 	// test to see if endpoints were generated in db
 	_ = data.GetEndpoints(&l, db)
