@@ -6,8 +6,8 @@
     - [GET /{endpoint}](#get-endpoint)
     - [GET /shortcuts](#get-shortcuts)
     - [PUT /shortcut](#put-shortcut)
-2. [Exercise Details](#exercise-details)
 3. [Exercise Modifications](#exercise-modifications)
+4. [Exercise Details](#exercise-details)
 
 ## Usage
 Simply copy these files into a directory and run ```go run main.go``` to start the server on localhost:8080
