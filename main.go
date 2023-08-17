@@ -68,6 +68,7 @@ func main() {
 	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
 	sm.Post("/shortcut", handler.Logger(hh.CreateShortcut, &l))
+	sm.Put("/{endpoint}", handler.Logger(hh.UpdateEndpoint, &l))
 
 	// create a new server
 	s := http.Server{
@@ -103,7 +104,7 @@ func main() {
 	timeoutCtx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	err = s.Shutdown(timeoutCtx)
 	if err != nil {
-		l.Fatal().Msg("Shutdown exceeded timeout")
+		l.Fatal().Err(err).Msg("Shutdown exceeded timeout")
 	}
 }
 

@@ -6,6 +6,11 @@ import (
 	"github.com/rs/zerolog"
 )
 
+type JsonRequest struct {
+	Endpoint string `json:"endpoint"`
+	URL      string `json:"url"`
+}
+
 type HandlerHelper struct {
 	l  *zerolog.Logger
 	db *sql.DB

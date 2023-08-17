@@ -32,3 +32,14 @@ func AddEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*s
 
 	return db, nil
 }
+
+// changes the URL to the newURL
+func UpdateEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, newURL string) error {
+	_, err := db.Exec("UPDATE endpoints SET url = ? WHERE endpoint = ?", newURL, endpoint)
+	if err != nil {
+		l.Error().Err(err).Msg("Error updating endpoint")
+		return err
+	}
+
+	return nil
+}
