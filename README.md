@@ -53,10 +53,10 @@ Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
     - **required**
     - **Content-Type: application/json**
 
-| Parameter   | Type      | Description                                             |
-|-------------|-----------|---------------------------------------------------------|
-| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint) |
-| url         | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint) |
+| Parameter   | Type      | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
+| url         | string    | url that [GET /{endpoint}](#get-endpoint) will route you to |
 
 Example Usage:
 ```
