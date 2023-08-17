@@ -5,6 +5,7 @@
   - [Start the server](#start-the-server-on-localhost8080)
   - [Specify a port](#specify-a-port)
   - [Packages used](#packages-used)
+  - [Prepopulate database](#prepopulate-database)
 - [Endpoints](#endpoints)
   - [GET /{endpoint}](#get-endpoint)
   - [GET /shortcuts](#get-shortcuts)
@@ -38,13 +39,31 @@ The above would redirect a user to google if GET /shortcuts contained:
 
  You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts). Full CRUD API documentation can be found [here](#endpoints).
 
-### Specify a port
+### Specify a port:
 - Default port: 8080
 ```
-go run main.go -p 9090
+go run main.go -port_number 9090
 ```
 
-### Packages used
+### Prepopulate database:
+Specify a yaml file to prepopulate the database with
+
+Example YAML file
+```yaml
+- endpoint: "urlshort"
+  url: "https://github.com/joshuabl97/urlShort#prepopulate-the-database"
+- endpoint: "urlshort-inspo"
+  url: "https://github.com/gophercises/urlshort"
+```
+
+
+Usage 
+```
+// starts the server
+ go run main.go -yaml_filepath example.yaml 
+```
+
+### Packages used:
 - [chi](https://github.com/go-chi/chi)
 - [SQLite](https://www.sqlite.org/index.html)
 - [zerolog](https://github.com/rs/zerolog)
