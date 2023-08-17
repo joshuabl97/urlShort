@@ -7,13 +7,13 @@ import (
 )
 
 // returns a map of all the endpoints stored in the database
-func GetEndpoints(l *zerolog.Logger, db *sql.DB) map[string]string {
+func GetEndpoints(l *zerolog.Logger, db *sql.DB) (map[string]string, error) {
 	// m[id][endpoint, url]
 	m := make(map[string]string)
 	rows, err := db.Query("SELECT endpoint, url FROM endpoints")
 	if err != nil {
 		l.Fatal().Err(err).Msg("Error querying data")
-		return nil
+		return nil, err
 	}
 	defer rows.Close()
 
@@ -22,13 +22,13 @@ func GetEndpoints(l *zerolog.Logger, db *sql.DB) map[string]string {
 		err := rows.Scan(&endpoint, &url)
 		if err != nil {
 			l.Fatal().Err(err).Msg("Error reading queried data")
-			return nil
+			return nil, err
 		}
 		m[endpoint] = url
 		l.Info().Msg(endpoint + " " + url)
 	}
 
-	return m
+	return m, nil
 }
 
 // returns false if the endpoint is not found

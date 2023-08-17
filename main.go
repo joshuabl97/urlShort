@@ -43,14 +43,18 @@ func main() {
 	db, _ = data.AddEndpoint(&l, db, "example1", "https://www.google.com")
 
 	// test to see if endpoints were generated in db
-	_ = data.GetEndpoints(&l, db)
+	_, err = data.GetEndpoints(&l, db)
+	if err != nil {
+		l.Fatal().Err(err).Msg("failed to initialize db")
+	}
 
-	// creating handler struct for redirect handler
-	rh := handler.NewHandlerHelper(&l, db)
+	// helper handler contains *zerolog.Logger and *sql.DB
+	hh := handler.NewHandlerHelper(&l, db)
 
 	// registering the handlers on the serve mux (sm)
 	sm := chi.NewRouter()
-	sm.Get("/{endpoint}", rh.Redirect)
+	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
+	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
 
 	// create a new server
 	s := http.Server{
