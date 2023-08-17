@@ -40,7 +40,7 @@ func CheckEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string) (bool, string
 			// endpoint not found
 			return false, ""
 		}
-		l.Error().Err(err).Msg("Error checking username existence")
+		l.Error().Err(err).Msg("Error checking endpoint existence")
 		return false, ""
 	}
 
