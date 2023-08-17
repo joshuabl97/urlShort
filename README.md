@@ -69,7 +69,7 @@ In the browser going to ```localhost:8080/urlshort``` would take you here to thi
 - [chi](https://github.com/go-chi/chi)
 - [SQLite](https://www.sqlite.org/index.html)
 - [zerolog](https://github.com/rs/zerolog)
-- [yaml.v2](gopkg.in/yaml.v2)
+- [yaml.v2](https://github.com/go-yaml/yaml/tree/v2.4.0)
 
 ## Endpoints
 
