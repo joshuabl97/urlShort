@@ -4,8 +4,8 @@
 - [Usage](#usage)
   - [Start the server](#start-the-server-on-localhost8080)
   - [Specify a port](#specify-a-port)
-  - [Packages used](#packages-used)
   - [Prepopulate database](#prepopulate-database)
+  - [Packages used](#packages-used)
 - [Endpoints](#endpoints)
   - [GET /{endpoint}](#get-endpoint)
   - [GET /shortcuts](#get-shortcuts)
@@ -48,7 +48,7 @@ go run main.go -port_number 9090
 ### Prepopulate database:
 Specify a yaml file to prepopulate the database with
 
-Example YAML file
+Example YAML file contents
 ```yaml
 - endpoint: "urlshort"
   url: "https://github.com/joshuabl97/urlShort#prepopulate-the-database"
@@ -63,11 +63,13 @@ Usage
  go run main.go -yaml_filepath example.yaml 
 ```
 
+In the browser going to ```localhost:8080/urlshort``` would take you here to this section of the documentation. 
+
 ### Packages used:
 - [chi](https://github.com/go-chi/chi)
 - [SQLite](https://www.sqlite.org/index.html)
 - [zerolog](https://github.com/rs/zerolog)
-
+- [yaml.v2](gopkg.in/yaml.v2)
 
 ## Endpoints
 
