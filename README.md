@@ -83,7 +83,7 @@ http://localhost:8080/shortcut
 
 ## Exercise modifications
 
-I've modified the example for this gophercises [URL Shortener](https://github.com/gophercises/urlshort) exercise (details below) to use the Chi router instead of Gorilla Mux. I've turned this into a basic CRUD api which demonstrates my ability to work with JSON rather than inputting the data using flags
+I've modified the example for this gophercises [URL Shortener](https://github.com/gophercises/urlshort) exercise (details below) to use the Chi router instead of Gorilla Mux. I've turned this into a basic CRUD api which demonstrates my ability to work with JSON, http requests, and databases rather than inputting the data using flags for YAML/JSON.
 
 [chi router](https://github.com/go-chi/chi)
 
