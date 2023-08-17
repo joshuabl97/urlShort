@@ -10,9 +10,14 @@
 4. [Exercise Details](#exercise-details)
 
 ## Usage
+This is a simple URL shortening app that allows users to create URL shortcuts using an API. 
+
 Simply copy these files into a directory and run ```go run main.go``` to start the server on localhost:8080
 
-There is also a flag that lets you choose your own port
+Going to an endpoint that is stored in the SQLite .db file generated will redirect the user to the URL stored. You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts). Full CRUD documentation can be found [here](#endpoints).
+
+You can specify a flag to choose your own port
+Please note: this is not required - default = 8080
 ```
 go run main.go -p 9090
 ```
