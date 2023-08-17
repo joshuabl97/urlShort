@@ -15,11 +15,8 @@ import (
 	"github.com/rs/zerolog"
 )
 
-// TODO:
-// Add a YAML flag for pre-populating the database with endpoints
-// Add DELETE /{endpoint} handler
-// Add
-var portNum = flag.String("port number", "8080", "The port number the server runs on")
+var portNum = flag.String("port_number", "8080", "The port number the server runs on")
+var yamlPath = flag.String("yaml_filepath", "", "File used to prepopulate DB")
 
 func main() {
 	// parse flags
@@ -53,10 +50,15 @@ func main() {
 	db, _ = data.AddEndpoint(&l, db, "example1", "https://google.com")
 	db, _ = data.AddEndpoint(&l, db, "example2", "https://example.com/")
 
+	// prepopulate db
+	if *yamlPath != "" {
+		db = data.AddYamlToDB(*yamlPath, &l, db)
+	}
+
 	// test to see if endpoints were generated in db
 	_, err = data.GetEndpoints(&l, db)
 	if err != nil {
-		l.Fatal().Err(err).Msg("failed to initialize db")
+		l.Fatal().Err(err).Msg("Failed to initialize DB")
 		os.Exit(1)
 	}
 

@@ -1,0 +1,4 @@
+- endpoint: "urlshort"
+  url: "https://github.com/joshuabl97/urlShort#prepopulate-the-database"
+- endpoint: "urlshort-inspo"
+  url: "https://github.com/gophercises/urlshort"
