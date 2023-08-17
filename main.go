@@ -69,6 +69,7 @@ func main() {
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
 	sm.Post("/shortcut", handler.Logger(hh.CreateShortcut, &l))
 	sm.Put("/{endpoint}", handler.Logger(hh.UpdateEndpoint, &l))
+	sm.Delete("/{endpoint}", handler.Logger(hh.DeleteEndpoint, &l))
 
 	// create a new server
 	s := http.Server{

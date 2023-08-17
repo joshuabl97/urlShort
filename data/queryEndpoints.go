@@ -25,7 +25,6 @@ func GetEndpoints(l *zerolog.Logger, db *sql.DB) (map[string]string, error) {
 			return nil, err
 		}
 		m[endpoint] = url
-		l.Info().Msg(endpoint + " " + url)
 	}
 
 	return m, nil

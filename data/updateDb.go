@@ -43,3 +43,14 @@ func UpdateEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, newURL strin
 
 	return nil
 }
+
+// deletes a row from the database
+func DeleteRow(l *zerolog.Logger, db *sql.DB, endpoint string) error {
+	_, err := db.Exec("DELETE FROM endpoints WHERE endpoint = ?", endpoint)
+	if err != nil {
+		l.Error().Err(err).Msg("Error deleting row")
+		return err
+	}
+
+	return nil
+}
