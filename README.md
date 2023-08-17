@@ -1,27 +1,54 @@
-# [URL Shortener](https://github.com/gophercises/urlshort)
+# URL Shortener
 
 # Table of Contents
-1. [Usage](#usage)
-2. [Endpoints](#endpoints)
-    - [GET /{endpoint}](#get-endpoint)
-    - [GET /shortcuts](#get-shortcuts)
-    - [POST /shortcut](#post-shortcut)
-    - [PUT /{endpoint}](#put-endpoint)
-3. [Exercise Modifications](#exercise-modifications)
-4. [Exercise Details](#exercise-details)
+- [Usage](#usage)
+  - [Start the server](#start-the-server-on-localhost8080)
+  - [Specify a port](#specify-a-port)
+  - [Packages used](#packages-used)
+- [Endpoints](#endpoints)
+  - [GET /{endpoint}](#get-endpoint)
+  - [GET /shortcuts](#get-shortcuts)
+  - [POST /shortcut](#post-shortcut)
+  - [PUT /{endpoint}](#put-endpoint)
+  - [DELETE /{endpoint}](#delete-endpoint)
 
 ## Usage
 This is a simple URL shortening app that allows users to create URL shortcuts using an API. 
 
 Simply copy these files into a directory and run ```go run main.go``` to start the server on localhost:8080
 
-Going to an endpoint that is stored in the SQLite .db file generated will redirect the user to the URL stored. You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts). Full CRUD documentation can be found [here](#endpoints).
+### Start the server on localhost:8080
+```
+go run main.go
+```
 
-You can specify a flag to choose your own port
-Please note: this is not required - default = 8080
+Going to an endpoint that is stored in the SQLite .db file generated will redirect the user to the URL stored
+
+![redirect example](/redirect.png)
+
+The above would redirect a user to google if GET /shortcuts contained:
+```json
+{
+    "shortcuts":[
+      {"endpoint":"example1","url":"https://www.google.com"},
+      {"endpoint":"example2","url":"https://example.com/"}
+    ]
+  }
+```
+
+ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts). Full CRUD API documentation can be found [here](#endpoints).
+
+### Specify a port
+- Default port: 8080
 ```
 go run main.go -p 9090
 ```
+
+### Packages used
+- [chi](https://github.com/go-chi/chi)
+- [SQLite](https://www.sqlite.org/index.html)
+- [zerolog](https://github.com/rs/zerolog)
+
 
 ## Endpoints
 
@@ -63,7 +90,7 @@ curl localhost:8080/shortcuts | jq
 
 Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
-You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts).
+You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts)
 
 - **Endpoint:** `/shortcut`
 - **Method:** `POST`
@@ -88,7 +115,7 @@ http://localhost:8080/shortcut
 
 Updates an existing shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
-You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts).
+You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts)
 
 - **Endpoint:** `/{endpoint}`
 - **Method:** `PUT`
@@ -109,6 +136,14 @@ curl -X PUT
 http://localhost:8080/shortcut
 ```
 
+### DELETE /{endpoint}
+Deletes an endpoint stored in the database
+
+You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts)
+
+- **Endpoint:** `/{endpoint}`
+- **Method:** `DELETE`
+
 ## Exercise modifications
 
 I've modified the example for this gophercises [URL Shortener](https://github.com/gophercises/urlshort) exercise (details below) to use the Chi router instead of Gorilla Mux. I've turned this into a basic CRUD api which demonstrates my ability to work with JSON, http requests, and databases rather than inputting the data using flags for YAML/JSON.
@@ -120,40 +155,3 @@ I've modified the example for this gophercises [URL Shortener](https://github.co
 [link to original exercise (gophercises)](https://github.com/gophercises/urlshort)
 
 [SQLite](https://www.sqlite.org/index.html)
-
-
-## Exercise details
-
-The goal of this exercise is to create an [http.Handler](https://golang.org/pkg/net/http/#Handler) that will look at the path of any incoming web request and determine if it should redirect the user to a new page, much like URL shortener would.
-
-For instance, if we have a redirect setup for `/dogs` to `https://www.somesite.com/a-story-about-dogs` we would look for any incoming web requests with the path `/dogs` and redirect them.
-
-To complete this exercises you will need to implement the stubbed out methods in [handler.go](https://github.com/gophercises/urlshort/blob/master/handler.go). There are a good bit of comments explaining what each method should do, and there is also a [main/main.go](https://github.com/gophercises/urlshort/blob/master/main/main.go) source file that uses the package to help you test your code and get an idea of what your program should be doing.
-
-I suggest first commenting out all of the code in main.go related to the `YAMLHandler` function and focusing on implementing the `MapHandler` function first.
-
-Once you have that working, focus on parsing the YAML using the [gopkg.in/yaml.v2](https://godoc.org/gopkg.in/yaml.v2) package. *Note: You will need to `go get` this package if you don't have it already.*
-
-After you get the YAML parsing down, try to convert the data into a map and then use the MapHandler to finish the YAMLHandler implementation. Eg you might end up with some code like this:
-
-```go
-func YAMLHandler(yaml []byte, fallback http.Handler) (http.HandlerFunc, error) {
-  parsedYaml, err := parseYAML(yaml)
-  if err != nil {
-    return nil, err
-  }
-  pathMap := buildMap(parsedYaml)
-  return MapHandler(pathMap, fallback), nil
-}
-```
-
-But in order for this to work you will need to create functions like `parseYAML` and `buildMap` on your own. This should give you ample experience working with YAML data.
-
-
-## Bonus
-
-As a bonus exercises you can also...
-
-1. Update the [main/main.go](https://github.com/gophercises/urlshort/blob/master/main/main.go) source file to accept a YAML file as a flag and then load the YAML from a file rather than from a string.
-2. Build a JSONHandler that serves the same purpose, but reads from JSON data.
-3. Build a Handler that doesn't read from a map but instead reads from a database. Whether you use BoltDB, SQL, or something else is entirely up to you.
