@@ -5,7 +5,7 @@
 2. [Endpoints](#endpoints)
     - [GET /{endpoint}](#get-endpoint)
     - [GET /shortcuts](#get-shortcuts)
-    - [PUT /shortcut](#put-shortcut)
+    - [POST /shortcut](#post-shortcut)
 3. [Exercise Modifications](#exercise-modifications)
 4. [Exercise Details](#exercise-details)
 
@@ -58,12 +58,12 @@ Example Usage:
 curl localhost:8080/shortcuts | jq
 ```
 
-### PUT /shortcut
+### POST /shortcut
 
 Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
 - **Endpoint:** `/shortcut`
-- **Method:** `PUT`
+- **Method:** `POST`
 - **Parameters:**
     - **required**
     - **Content-Type: application/json**
@@ -75,7 +75,7 @@ Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
 Example Usage:
 ```
-curl -X PUT 
+curl -X POST 
 -H "Content-Type: application/json" 
 -d '{"endpoint":"test","url":"https://godaddy.com"}' 
 http://localhost:8080/shortcut
