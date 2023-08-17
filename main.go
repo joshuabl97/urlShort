@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"net/http"
 	"os"
@@ -14,7 +15,14 @@ import (
 	"github.com/rs/zerolog"
 )
 
+// TODO:
+// Check to see if the endpoint exists prior to calling AddEndpoint PUT /shortcut
+var portNum = flag.String("port number", "8080", "The port number the server runs on")
+
 func main() {
+	// parse flags
+	flag.Parse()
+
 	// instantiate logger
 	l := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	// setting timezone
@@ -61,7 +69,7 @@ func main() {
 
 	// create a new server
 	s := http.Server{
-		Addr:         ":8080",                  // configure the bind address
+		Addr:         ":" + *portNum,           // configure the bind address
 		Handler:      sm,                       // set the default handler
 		IdleTimeout:  120 * time.Second,        // max duration to wait for the next request when keep-alives are enabled
 		ReadTimeout:  5 * time.Second,          // max duration for reading the request
