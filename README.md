@@ -143,15 +143,3 @@ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcu
 
 - **Endpoint:** `/{endpoint}`
 - **Method:** `DELETE`
-
-## Exercise modifications
-
-I've modified the example for this gophercises [URL Shortener](https://github.com/gophercises/urlshort) exercise (details below) to use the Chi router instead of Gorilla Mux. I've turned this into a basic CRUD api which demonstrates my ability to work with JSON, http requests, and databases rather than inputting the data using flags for YAML/JSON.
-
-[chi router](https://github.com/go-chi/chi)
-
-[gorilla mux](https://github.com/gorilla/mux)
-
-[link to original exercise (gophercises)](https://github.com/gophercises/urlshort)
-
-[SQLite](https://www.sqlite.org/index.html)
