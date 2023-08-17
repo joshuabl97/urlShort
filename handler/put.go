@@ -53,5 +53,5 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Request body received and validated"))
+	w.Write([]byte("Sucessfully added to database"))
 }
