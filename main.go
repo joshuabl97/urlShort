@@ -47,6 +47,7 @@ func main() {
 	_, err = data.GetEndpoints(&l, db)
 	if err != nil {
 		l.Fatal().Err(err).Msg("failed to initialize db")
+		os.Exit(1)
 	}
 
 	// helper handler contains *zerolog.Logger and *sql.DB
@@ -56,6 +57,7 @@ func main() {
 	sm := chi.NewRouter()
 	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
+	sm.Put("/shortcut", handler.Logger(hh.CreateShortcut, &l))
 
 	// create a new server
 	s := http.Server{

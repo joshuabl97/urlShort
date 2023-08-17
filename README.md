@@ -16,6 +16,11 @@ Redirects you to the url where the endpoint is linked in the database (view all 
 - **Endpoint:** `/{endpoint}`
 - **Method:** `GET`
 
+Example Usage:
+In the browser go to an endpoint listed in shortcuts and it will redirect you to the URL
+i.e 
+localhost:8080/example1 would bring you to google.com
+
 ### GET /shortcuts
 
 Get all the shortcuts available to be used by GET /{endpoint}
@@ -31,6 +36,35 @@ Get all the shortcuts available to be used by GET /{endpoint}
       {"endpoint":"example2","url":"https://example.com/"}
     ]
   }
+  ```
+
+Example Usage:
+```
+curl localhost:8080/shortcuts | jq
+```
+
+### PUT /shortcut
+
+Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
+
+- **Endpoint:** `/shortcut`
+- **Method:** `PUT`
+- **Parameters:**
+    - **required**
+    - **Content-Type: application/json**
+
+| Parameter   | Type      | Description                                             |
+|-------------|-----------|---------------------------------------------------------|
+| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint) |
+| url         | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint) |
+
+Example Usage:
+```
+curl -X PUT 
+-H "Content-Type: application/json" 
+-d '{"endpoint":"test","url":"https://godaddy.com"}' 
+http://localhost:8080/shortcut
+```
 
 ## Exercise details
 
