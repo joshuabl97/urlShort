@@ -13,7 +13,7 @@ type JsonRequest struct {
 	URL      string `json:"url"`
 }
 
-// Put /shortcut creates a new shortcut in the endpoints table
+// Post /shortcut creates a new shortcut in the endpoints table
 func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 	// parse the JSON body
 	var request JsonRequest
