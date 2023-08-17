@@ -6,6 +6,7 @@
     - [GET /{endpoint}](#get-endpoint)
     - [GET /shortcuts](#get-shortcuts)
     - [POST /shortcut](#post-shortcut)
+    - [PUT /{endpoint}](#put-endpoint)
 3. [Exercise Modifications](#exercise-modifications)
 4. [Exercise Details](#exercise-details)
 
@@ -62,6 +63,8 @@ curl localhost:8080/shortcuts | jq
 
 Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
+You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts).
+
 - **Endpoint:** `/shortcut`
 - **Method:** `POST`
 - **Parameters:**
@@ -78,6 +81,31 @@ Example Usage:
 curl -X POST 
 -H "Content-Type: application/json" 
 -d '{"endpoint":"test","url":"https://godaddy.com"}' 
+http://localhost:8080/shortcut
+```
+
+### PUT /{endpoint}
+
+Updates an existing shortcut available to be used by [GET /{endpoint}](#get-endpoint)
+
+You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts).
+
+- **Endpoint:** `/{endpoint}`
+- **Method:** `PUT`
+- **Parameters:**
+    - **required**
+    - **Content-Type: application/json**
+
+| Parameter   | Type      | Description                                                 |
+|-------------|-----------|-------------------------------------------------------------|
+| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
+| url         | string    | the url you would like to replace                           |
+
+Example Usage:
+```
+curl -X PUT 
+-H "Content-Type: application/json" 
+-d '{"endpoint":"test","url":"https://anotherSite.com"}' 
 http://localhost:8080/shortcut
 ```
 
