@@ -16,7 +16,9 @@ import (
 )
 
 // TODO:
-// Check to see if the endpoint exists prior to calling AddEndpoint PUT /shortcut
+// Add a YAML flag for pre-populating the database with endpoints
+// Add DELETE /{endpoint} handler
+// Add
 var portNum = flag.String("port number", "8080", "The port number the server runs on")
 
 func main() {
@@ -65,7 +67,7 @@ func main() {
 	sm := chi.NewRouter()
 	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
-	sm.Put("/shortcut", handler.Logger(hh.CreateShortcut, &l))
+	sm.Post("/shortcut", handler.Logger(hh.CreateShortcut, &l))
 
 	// create a new server
 	s := http.Server{
