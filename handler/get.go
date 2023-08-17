@@ -7,6 +7,15 @@ import (
 	"github.com/joshuabl97/urlShort/data"
 )
 
+type EndpointsRow struct {
+	Endpoint string `json:"endpoint"`
+	URL      string `json:"url"`
+}
+
+type Shortcuts struct {
+	Shortcuts []EndpointsRow `json:"shortcuts"`
+}
+
 func (h *HandlerHelper) GetShortcuts(w http.ResponseWriter, r *http.Request) {
 	m, err := data.GetEndpoints(h.l, h.db)
 	if err != nil {
@@ -14,8 +23,15 @@ func (h *HandlerHelper) GetShortcuts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var rows []EndpointsRow
+	for k, v := range m {
+		rows = append(rows, EndpointsRow{Endpoint: k, URL: v})
+	}
+
+	result := Shortcuts{Shortcuts: rows}
+
 	// Marshal the data into JSON format
-	jsonData, err := json.Marshal(m)
+	jsonData, err := json.Marshal(result)
 	if err != nil {
 		http.Error(w, "Error marshaling JSON", http.StatusInternalServerError)
 		h.l.Error().Err(err).Msg("Failed to marshal JSON")

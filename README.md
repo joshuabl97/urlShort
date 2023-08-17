@@ -1,8 +1,36 @@
 # Exercise #2: [URL Shortener](https://github.com/gophercises/urlshort)
 
 # Table of Contents
-1. [Exercise Details](#exercise-details)
-2. [Exercise Modifications](#exercise-modifications)
+1. [Endpoints](#endpoints)
+    1. [GET /{endpoint}](#get-endpoint)
+    2. [GET /shortcuts](#get-shortcuts)
+2. [Exercise Details](#exercise-details)
+3. [Exercise Modifications](#exercise-modifications)
+
+## Endpoints
+
+### GET /{endpoint}
+
+Redirects you to the url where the endpoint is linked in the database (view all endpoints by calling GET /shortcuts)
+
+- **Endpoint:** `/{endpoint}`
+- **Method:** `GET`
+
+### GET /shortcuts
+
+Get all the shortcuts available to be used by GET /{endpoint}
+
+- **Endpoint:** `/shortcuts`
+- **Method:** `GET`
+
+- **Response:**
+  ```json
+  {
+    "shortcuts":[
+      {"endpoint":"example1","url":"https://www.google.com"},
+      {"endpoint":"example2","url":"https://example.com/"}
+    ]
+  }
 
 ## Exercise details
 
@@ -44,8 +72,12 @@ As a bonus exercises you can also...
 
 I've modified the example for this gophercises exercise to use the Chi router instead of Gorilla Mux. I also plan on combining the YAML/JSON data to be stored into the sqlite database that is handled by a single handler. 
 
+Update: I've turned this into a basic CRUD api (see endpoints above)
+
 [chi router](https://github.com/go-chi/chi)
 
 [gorilla mux](https://github.com/gorilla/mux)
 
 [link to original exercise (gophercises)](https://github.com/gophercises/urlshort)
+
+[SQLite](https://www.sqlite.org/index.html)
