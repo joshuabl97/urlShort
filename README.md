@@ -132,7 +132,7 @@ Example Usage:
 ```
 curl -X PUT 
 -H "Content-Type: application/json" 
--d '{"endpoint":"test","url":"https://anotherSite.com"}' 
+-d '{"endpoint":"example1","url":"https://anotherSite.com"}' 
 http://localhost:8080/shortcut
 ```
 
@@ -143,3 +143,8 @@ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcu
 
 - **Endpoint:** `/{endpoint}`
 - **Method:** `DELETE`
+
+Example Usage:
+```
+curl -X DELETE localhost:8080/example1
+```
