@@ -35,7 +35,7 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 	// check to see if the endpoint already exists
 	exists, _ := data.CheckEndpoint(h.l, h.db, request.Endpoint)
 	if exists {
-		h.l.Error().Str("Endpoint: ", request.Endpoint).Msg("Endpoint already exists")
+		h.l.Error().Str("Endpoint", request.Endpoint).Msg("Endpoint already exists")
 		badEndpoint := fmt.Sprintf("Endpoint %v already exists", request.Endpoint)
 		http.Error(w, badEndpoint, http.StatusBadRequest)
 		return
