@@ -52,7 +52,11 @@ func main() {
 
 	// prepopulate db
 	if *yamlPath != "" {
-		db = data.AddYamlToDB(*yamlPath, &l, db)
+		endpoints, err := data.ParseYaml(*yamlPath, db)
+		if err != nil {
+			l.Error().Err(err).Msg("Error parsing yaml")
+		}
+		db = data.AddMultipleEndpoints(endpoints, &l, db)
 	}
 
 	// test to see if endpoints were generated in db

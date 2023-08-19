@@ -2,6 +2,7 @@ package data
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/rs/zerolog"
 )
@@ -12,22 +13,17 @@ func AddEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*s
 	err := db.QueryRow("SELECT COUNT(*) FROM endpoints WHERE endpoint = ? OR url = ?", endpoint, url).Scan(&count)
 	if err != nil {
 		l.Error().Err(err).Msg("Error checking existing data")
-		return db, err
+		return db, fmt.Errorf("error querying db: %v", err)
 	}
 
 	if count > 0 {
-		l.Info().
-			Str("Endpoint", endpoint).
-			Str("URL", url).
-			Msg("Endpoint or URL already exists in the database")
-		return db, nil
+		return db, fmt.Errorf("endpoint already exists: %v", endpoint)
 	}
 
 	// Insert data into the endpoints table
 	_, err = db.Exec("INSERT INTO endpoints (endpoint, url) VALUES (?, ?)", endpoint, url)
 	if err != nil {
-		l.Error().Err(err).Msg("Error inserting data")
-		return db, err
+		return db, fmt.Errorf("error inserting data: %v", err)
 	}
 
 	return db, nil
@@ -53,4 +49,18 @@ func DeleteRow(l *zerolog.Logger, db *sql.DB, endpoint string) error {
 	}
 
 	return nil
+}
+
+// adds multiple endpoints to the DB
+func AddMultipleEndpoints(data []Endpoint, l *zerolog.Logger, db *sql.DB) *sql.DB {
+	for _, shortcut := range data {
+		fmt.Println(shortcut.Endpoint, shortcut.URL)
+		var err error
+		db, err = AddEndpoint(l, db, shortcut.Endpoint, shortcut.URL)
+		if err != nil {
+			l.Error().Err(err).Msg("Error adding shortcut to db")
+		}
+	}
+
+	return db
 }
