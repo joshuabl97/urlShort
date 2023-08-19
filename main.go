@@ -17,6 +17,7 @@ import (
 
 var portNum = flag.String("port_number", "8080", "The port number the server runs on")
 var yamlPath = flag.String("yaml_filepath", "", "File used to prepopulate DB")
+var timeZone = flag.String("timezone", "Etc/Greenwich", "Timezone formatted like the example provided")
 
 func main() {
 	// parse flags
@@ -25,7 +26,7 @@ func main() {
 	// instantiate logger
 	l := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	// setting timezone
-	loc, err := time.LoadLocation("Etc/Greenwich")
+	loc, err := time.LoadLocation(*timeZone)
 	if err != nil {
 		l.Error().Msg("Couldn't determine timezone, using local machine time")
 	} else if err == nil {
