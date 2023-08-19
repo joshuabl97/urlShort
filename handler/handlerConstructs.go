@@ -3,6 +3,7 @@ package handler
 import (
 	"database/sql"
 
+	"github.com/joshuabl97/urlShort/data"
 	"github.com/rs/zerolog"
 )
 
@@ -18,11 +19,6 @@ type HandlerHelper struct {
 	db *sql.DB
 }
 
-type EndpointsRow struct {
-	Endpoint string `json:"endpoint"`
-	URL      string `json:"url"`
-}
-
 type Shortcuts struct {
-	Shortcuts []EndpointsRow `json:"shortcuts"`
+	Shortcuts []data.Endpoint `json:"shortcuts"`
 }

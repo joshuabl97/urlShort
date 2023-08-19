@@ -19,9 +19,9 @@ func (h *HandlerHelper) GetShortcuts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var rows []EndpointsRow
+	var rows []data.Endpoint
 	for k, v := range m {
-		rows = append(rows, EndpointsRow{Endpoint: k, URL: v})
+		rows = append(rows, data.Endpoint{Endpoint: k, URL: v})
 	}
 
 	result := Shortcuts{Shortcuts: rows}
