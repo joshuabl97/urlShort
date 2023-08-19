@@ -52,7 +52,7 @@ Specify a yaml file to prepopulate the database with
 Example YAML file contents
 ```yaml
 - endpoint: "urlshort"
-  url: "https://github.com/joshuabl97/urlShort#prepopulate-the-database"
+  url: "https://github.com/joshuabl97/urlShort#prepopulate-database"
 - endpoint: "urlshort-inspo"
   url: "https://github.com/gophercises/urlshort"
 ```
