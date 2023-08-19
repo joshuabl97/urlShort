@@ -7,12 +7,11 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func AddEndpoint(l *zerolog.Logger, db *sql.DB, endpoint string, url string) (*sql.DB, error) {
+func AddEndpoint(db *sql.DB, endpoint string, url string) (*sql.DB, error) {
 	// Check if the endpoint and URL already exist in the database
 	var count int
 	err := db.QueryRow("SELECT COUNT(*) FROM endpoints WHERE endpoint = ? OR url = ?", endpoint, url).Scan(&count)
 	if err != nil {
-		l.Error().Err(err).Msg("Error checking existing data")
 		return db, fmt.Errorf("error querying db: %v", err)
 	}
 
@@ -54,11 +53,14 @@ func DeleteRow(l *zerolog.Logger, db *sql.DB, endpoint string) error {
 // adds multiple endpoints to the DB
 func AddMultipleEndpoints(data []Endpoint, l *zerolog.Logger, db *sql.DB) *sql.DB {
 	for _, shortcut := range data {
-		fmt.Println(shortcut.Endpoint, shortcut.URL)
 		var err error
-		db, err = AddEndpoint(l, db, shortcut.Endpoint, shortcut.URL)
+		db, err = AddEndpoint(db, shortcut.Endpoint, shortcut.URL)
 		if err != nil {
-			l.Error().Err(err).Msg("Error adding shortcut to db")
+			l.Error().
+				Err(err).
+				Str("endpoint", shortcut.Endpoint).
+				Str("url", shortcut.URL).
+				Msg("Error adding shortcut to db")
 		}
 	}
 

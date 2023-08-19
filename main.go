@@ -48,18 +48,20 @@ func main() {
 	defer db.Close()
 
 	// add endpoints to db
-	db, _ = data.AddEndpoint(&l, db, "example1", "https://google.com")
-	db, _ = data.AddEndpoint(&l, db, "example2", "https://example.com/")
+	db, _ = data.AddEndpoint(db, "example1", "https://google.com")
+	db, _ = data.AddEndpoint(db, "example2", "https://example.com/")
 
 	// prepopulate db
 	if *yamlPath != "" {
 		endpoints, err := data.ParseYaml(*yamlPath, db)
 		if err != nil {
 			l.Error().Err(err).Msg("Error parsing yaml")
+			goto skipYaml
 		}
 		db = data.AddMultipleEndpoints(endpoints, &l, db)
 	}
 
+skipYaml:
 	// test to see if endpoints were generated in db
 	_, err = data.GetEndpoints(&l, db)
 	if err != nil {
