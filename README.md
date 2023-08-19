@@ -5,6 +5,7 @@
   - [Start the server](#start-the-server-on-localhost8080)
   - [Specify a port](#specify-a-port)
   - [Prepopulate database](#prepopulate-database)
+  - [Change the log timezone](#change-the-log-timezone)
   - [Packages used](#packages-used)
 - [Endpoints](#endpoints)
   - [GET /{endpoint}](#get-endpoint)
@@ -56,7 +57,6 @@ Example YAML file contents
   url: "https://github.com/gophercises/urlshort"
 ```
 
-
 Usage 
 ```
 // starts the server
@@ -64,6 +64,16 @@ Usage
 ```
 
 In the browser going to ```localhost:8080/urlshort``` would take you here to this section of the documentation. 
+
+### Change the log timezone
+Specify a timezone you would like the server to use for printing logs
+
+Usage
+```
+// timezone only accepts official TZ identifiers
+// i.e Etc/Greenwich
+go run main.go -timezone America/New_York
+```
 
 ### Packages used:
 - [chi](https://github.com/go-chi/chi)

@@ -17,7 +17,7 @@ import (
 
 var portNum = flag.String("port_number", "8080", "The port number the server runs on")
 var yamlPath = flag.String("yaml_filepath", "", "File used to prepopulate DB")
-var timeZone = flag.String("timezone", "Etc/Greenwich", "Timezone formatted like the example provided")
+var timeZone = flag.String("timezone", "Etc/Greenwich", "An official TZ identifier")
 
 func main() {
 	// parse flags
