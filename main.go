@@ -119,6 +119,7 @@ skipYaml:
 	err = s.Shutdown(timeoutCtx)
 	if err != nil {
 		l.Fatal().Err(err).Msg("Shutdown exceeded timeout")
+		os.Exit(1)
 	}
 }
 
