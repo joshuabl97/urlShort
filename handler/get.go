@@ -7,15 +7,11 @@ import (
 	"github.com/joshuabl97/urlShort/data"
 )
 
-type EndpointsRow struct {
-	Endpoint string `json:"endpoint"`
-	URL      string `json:"url"`
-}
-
-type Shortcuts struct {
-	Shortcuts []EndpointsRow `json:"shortcuts"`
-}
-
+// return all the shortcuts to the user in JSON format
+// i.e {"shortcuts": [
+// {"endpoint":"example1","url":"https://google.com"},
+// {"endpoint":"example2","url":"https://example.com/"}
+// ]
 func (h *HandlerHelper) GetShortcuts(w http.ResponseWriter, r *http.Request) {
 	m, err := data.GetEndpoints(h.l, h.db)
 	if err != nil {

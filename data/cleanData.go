@@ -8,12 +8,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// a single shortcut
-type Endpoint struct {
-	Endpoint string `yaml:"endpoint"`
-	URL      string `yaml:"url"`
-}
-
+// parses yaml and returns []data.Endpoint
 func ParseYaml(yamlPath string, db *sql.DB) ([]Endpoint, error) {
 	// open the YAML fil
 	file, err := os.ReadFile(yamlPath)
