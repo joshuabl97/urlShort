@@ -48,8 +48,12 @@ func main() {
 	defer db.Close()
 
 	// add endpoints to db
-	db, _ = data.AddEndpoint(db, "example1", "https://google.com")
-	db, _ = data.AddEndpoint(db, "example2", "https://example.com/")
+	initEndpoints := []data.Endpoint{
+		{Endpoint: "example1", URL: "https://google.com"},
+		{Endpoint: "example2", URL: "https://example.com/"},
+	}
+
+	db = data.AddMultipleEndpoints(initEndpoints, &l, db)
 
 	// prepopulate db
 	if *yamlPath != "" {
