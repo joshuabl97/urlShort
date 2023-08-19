@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/joshuabl97/urlShort/data"
 	"github.com/rs/zerolog"
 )
 
 // checks if endpoint and url are present in a request body
 // returns true if valid and returns the data as a struct (Type JsonRequest)
-func ValidateRequestJson(l *zerolog.Logger, w http.ResponseWriter, r *http.Request) (bool, JsonRequest) {
-	var request JsonRequest
+func ValidateRequestJson(l *zerolog.Logger, w http.ResponseWriter, r *http.Request) (bool, data.Endpoint) {
+	var request data.Endpoint
 	// parse the json body
 	err := json.NewDecoder(r.Body).Decode(&request)
 	fmt.Printf("%v", request)
