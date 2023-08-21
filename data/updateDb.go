@@ -7,6 +7,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
+// adds a single shortcut to the db
 func AddEndpoint(db *sql.DB, endpoint string, url string) (*sql.DB, error) {
 	// Check if the endpoint and URL already exist in the database
 	var count int
