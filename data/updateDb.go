@@ -17,7 +17,7 @@ func AddEndpoint(db *sql.DB, endpoint string, url string) (*sql.DB, error) {
 	}
 
 	if count > 0 {
-		return db, fmt.Errorf("endpoint already exists: %v", endpoint)
+		return db, fmt.Errorf("Endpoint or URL already exists - Endpoint: %v URL: %v", endpoint, url)
 	}
 
 	// Insert data into the endpoints table
