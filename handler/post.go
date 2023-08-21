@@ -18,6 +18,7 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if request.Endpoint == "" {
+		// only a URL is required in the request body
 		if request.URL == "" {
 			h.l.Error().Msg("Missing URL from JSON")
 			http.Error(w, "Missing required fields", http.StatusBadRequest)
@@ -35,6 +36,7 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		// implement a skipto feature where it checks if a random string is already in the db maybe?
 		request.Endpoint = generateRandomString(5)
 	}
 
@@ -43,6 +45,7 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 		Str("URL: ", request.URL).
 		Msg("Processing UniqueShortcut")
 
+	// adds the new shortcut to the database
 	h.db, err = data.AddEndpoint(h.db, request.Endpoint, request.URL)
 	if err != nil {
 		h.l.Error().Err(err).Msg("Failed to add request body to DB")
