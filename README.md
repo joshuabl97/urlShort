@@ -146,9 +146,9 @@ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcu
 
 Example Usage:
 ```
-curl -X POST 
--H "Content-Type: application/json" 
--d '{"endpoint":"test","url":"https://godaddy.com"}' 
+curl -X POST \
+-H "Content-Type: application/json" \
+-d '{"endpoint":"test","url":"https://godaddy.com"}' \
 http://localhost:8080/shortcut
 ```
 
@@ -171,9 +171,9 @@ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcu
 
 Example Usage:
 ```
-curl -X PUT 
--H "Content-Type: application/json" 
--d '{"endpoint":"example1","url":"https://anotherSite.com"}' 
+curl -X PUT \
+-H "Content-Type: application/json" \
+-d '{"endpoint":"example1","url":"https://anotherSite.com"}' \
 http://localhost:8080/shortcut
 ```
 
