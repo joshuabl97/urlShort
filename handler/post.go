@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -53,7 +54,22 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Sucessfully added to database"))
+	// Marshal the data into JSON format
+	jsonData, err := json.Marshal(request)
+	if err != nil {
+		http.Error(w, "Error marshaling JSON response", http.StatusInternalServerError)
+		h.l.Error().Err(err).Msg("Failed to marshal JSON response")
+		return
+	}
+
+	// Set the Content-Type header to indicate JSON
+	w.Header().Set("Content-Type", "application/json")
+	// Write the JSON data to the ResponseWriter
+	_, err = w.Write(jsonData)
+	if err != nil {
+		http.Error(w, "Error writing JSON response", http.StatusInternalServerError)
+		return
+	}
 }
 
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
