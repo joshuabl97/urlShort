@@ -134,8 +134,8 @@ You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcu
 
 | Parameter   | Type      | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
-| Endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
-| URL         | string    | url that [GET /{endpoint}](#get-endpoint) will route you to |
+| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
+| url         | string    | url that [GET /{endpoint}](#get-endpoint) will route you to |
 
 - **Response:**
   ```json
