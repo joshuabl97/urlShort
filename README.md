@@ -122,20 +122,20 @@ curl localhost:8080/shortcuts | jq
 Creates a new shortcut available to be used by [GET /{endpoint}](#get-endpoint)
 
 - ***If you do not specify an endpoint a random 5 character string will be generated instead***
-  - i.e  ```{"url":"example.com"}``` would return something like ```{"Endpoint": "jGw3a","URL": "example.com"}```
+  - i.e  ```{"url":"example.com"}``` would return something like ```{"endpoint": "jGw3a","url": "example.com"}```
 
 You can view all the endpoints and URLs by calling [GET /shortcuts](#get-shortcuts)
 
 - **Endpoint:** `/shortcut`
 - **Method:** `POST`
 - **Parameters:**
-    - **url required**
+    - **URL required**
     - **Content-Type: application/json**
 
 | Parameter   | Type      | Description                                                 |
 |-------------|-----------|-------------------------------------------------------------|
-| endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
-| url         | string    | url that [GET /{endpoint}](#get-endpoint) will route you to |
+| Endpoint    | string    | endpoint to be used in [GET /{endpoint}](#get-endpoint)     |
+| URL         | string    | url that [GET /{endpoint}](#get-endpoint) will route you to |
 
 - **Response:**
   ```json
