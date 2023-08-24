@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/joshuabl97/urlShort/data"
@@ -18,6 +19,10 @@ func (h *HandlerHelper) Redirect(w http.ResponseWriter, r *http.Request) {
 		h.l.Error().Msg("Endpoint not found")
 		http.NotFound(w, r)
 		return
+	}
+
+	if !strings.HasPrefix(url, "https://") || !strings.HasPrefix(url, "http://") {
+		url = "http://" + url
 	}
 
 	http.Redirect(w, r, url, http.StatusPermanentRedirect)

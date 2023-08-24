@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortcuts</title>
+</head>
+
+<body>
+    <br><a href="https://github.com/joshuabl97/urlShort">*Github and API docs*</a><br>
+<br><a href="/">Homepage</a><br>
+    <table>
+        <tr>
+          <th>Endpoint</th>
+          <th>URL</th>
+        </tr>
+        {{range .}}
+        <tr>
+          <td>{{.Endpoint }}</td>
+          <td>{{.URL }}</td>
+        </tr>
+        {{end}}
+      </table>
+</body>

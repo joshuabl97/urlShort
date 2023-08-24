@@ -79,6 +79,7 @@ skipYaml:
 	// registering the handlers on the serve mux (sm)
 	sm := chi.NewRouter()
 	sm.HandleFunc("/", handler.Logger(hh.Homepage, &l))
+	sm.HandleFunc("/viewall", handler.Logger(hh.ServeShortcuts, &l))
 	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
 	sm.Post("/shortcut", handler.Logger(hh.CreateShortcut, &l))
