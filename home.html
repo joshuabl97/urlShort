@@ -72,11 +72,12 @@
 </style>
 </head>
 <body>
+
 <div class="container">
   <h1>URL Shortener</h1>
-  <form>
+  <form action="/originalUrl" method="post">
     <label for="originalUrl">Enter the URL to shorten:</label>
-    <input type="text" id="originalUrl" placeholder="Enter the URL..." required>
+    <input type="text" id="originalUrl" name="originalUrl" placeholder="Enter the URL..." required>
     <button type="submit">Shorten URL</button>
   </form>
 
@@ -92,6 +93,11 @@
     </tr>
     {{end}}
   </table>
+
+  <br><br>
+  <a href="https://github.com/joshuabl97/urlShort">Github</a>
+  <br>
+
 </div>
 </body>
 </html>
