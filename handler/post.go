@@ -89,7 +89,7 @@ func (h *HandlerHelper) WebUrlGen(w http.ResponseWriter, r *http.Request) {
 	if url != "" {
 		// check to see if the endpoint already exists
 		exists, _ := data.CheckEndpoint(h.l, h.db, url)
-		if !exists {
+		if exists {
 			h.l.Error().Str("Endpoint", url).Msg("Endpoint already exists")
 			h.Message = fmt.Sprintf("Endpoint already exists - %v", url)
 			h.Homepage(w, r)
@@ -103,7 +103,7 @@ func (h *HandlerHelper) WebUrlGen(w http.ResponseWriter, r *http.Request) {
 		h.db, err = data.AddEndpoint(h.db, endpoint, url)
 		if err != nil {
 			h.l.Error().Err(err).Msg("Failed to add request body to DB")
-			h.Message = fmt.Sprintf("Failed to add endpoint - %v", url)
+			h.Message = fmt.Sprintf("Endpoint already exists - %v", url)
 			h.Homepage(w, r)
 			return
 		}
