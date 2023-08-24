@@ -9,8 +9,9 @@ import (
 
 // fields passed to handlers
 type HandlerHelper struct {
-	l  *zerolog.Logger
-	db *sql.DB
+	l       *zerolog.Logger
+	db      *sql.DB
+	Message string
 }
 
 type Shortcuts struct {

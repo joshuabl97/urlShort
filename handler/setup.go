@@ -8,5 +8,5 @@ import (
 
 // creates a handler helper
 func NewHandlerHelper(l *zerolog.Logger, db *sql.DB) *HandlerHelper {
-	return &HandlerHelper{l, db}
+	return &HandlerHelper{l, db, ""}
 }

@@ -76,24 +76,26 @@
 <div class="container">
   <h1>URL Shortener</h1>
 
-  <!-- Implement logic here to show error messages -->
+  {{if .Message}}
+  <div class="message">{{.Message}}</div><br>
+  {{end}}
 
   <form action="/originalUrl" method="post">
     <label for="originalUrl">Enter the URL to shorten:</label>
     <input type="text" id="originalUrl" name="originalUrl" placeholder="Enter the URL..." required>
     <button type="submit">Shorten URL</button>
-  </form>
+  </form><br>
 
-  <div style="height:150px;overflow:auto;">
+  <div style="height:200px;overflow:auto;">
     <table>
       <tr>
         <th>Endpoint</th>
         <th>URL</th>
       </tr>
-      {{range .}}
+      {{range .Shortcuts}}
       <tr>
-        <td>{{.Endpoint}}</td>
-        <td>{{.URL}}</td>
+        <td>{{.Endpoint }}</td>
+        <td>{{.URL }}</td>
       </tr>
       {{end}}
     </table>
