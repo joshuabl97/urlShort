@@ -78,11 +78,11 @@ skipYaml:
 
 	// registering the handlers on the serve mux (sm)
 	sm := chi.NewRouter()
-	sm.HandleFunc("/", handler.Logger(handler.Homepage, &l))
+	sm.HandleFunc("/", handler.Logger(hh.Homepage, &l))
 	sm.Get("/{endpoint}", handler.Logger(hh.Redirect, &l))
 	sm.Get("/shortcuts", handler.Logger(hh.GetShortcuts, &l))
 	sm.Post("/shortcut", handler.Logger(hh.CreateShortcut, &l))
-	sm.Post("/originalUrl", handler.Logger(hh.OGwebURL, &l))
+	sm.Post("/originalUrl", handler.Logger(hh.WebUrlGen, &l))
 	sm.Put("/{endpoint}", handler.Logger(hh.UpdateEndpoint, &l))
 	sm.Delete("/{endpoint}", handler.Logger(hh.DeleteEndpoint, &l))
 

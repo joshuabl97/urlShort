@@ -3,8 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/joshuabl97/urlShort/data"
 )
 
 // return all the shortcuts to the user in JSON format
@@ -13,16 +11,7 @@ import (
 // {"endpoint":"example2","url":"https://example.com/"}
 // ]
 func (h *HandlerHelper) GetShortcuts(w http.ResponseWriter, r *http.Request) {
-	m, err := data.GetEndpoints(h.l, h.db)
-	if err != nil {
-		http.Error(w, "Cannot query database for endpoints table", http.StatusInternalServerError)
-		return
-	}
-
-	var rows []data.Endpoint
-	for k, v := range m {
-		rows = append(rows, data.Endpoint{Endpoint: k, URL: v})
-	}
+	rows, w := getAndMarshalEndpoints(h.l, h.db, w)
 
 	result := Shortcuts{Shortcuts: rows}
 

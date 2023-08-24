@@ -9,7 +9,7 @@ import (
 
 func (h *HandlerHelper) UpdateEndpoint(w http.ResponseWriter, r *http.Request) {
 	// validate and parse the json in the request
-	valid, request := ValidateRequestJson(h.l, w, r)
+	valid, request := validateRequestJson(h.l, w, r)
 	if !valid {
 		h.l.Error().Msg("Invalid request CreateShortcut")
 		http.Error(w, "Invalid request", http.StatusBadRequest)

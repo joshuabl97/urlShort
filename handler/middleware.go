@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -11,7 +12,7 @@ import (
 
 // checks if endpoint and url are present in a request body
 // returns true if valid and returns the data as a struct (Type JsonRequest)
-func ValidateRequestJson(l *zerolog.Logger, w http.ResponseWriter, r *http.Request) (bool, data.Endpoint) {
+func validateRequestJson(l *zerolog.Logger, w http.ResponseWriter, r *http.Request) (bool, data.Endpoint) {
 	request, err := getShortcutRequest(l, w, r)
 	if err != nil {
 		l.Error().Err(err)
@@ -38,4 +39,19 @@ func getShortcutRequest(l *zerolog.Logger, w http.ResponseWriter, r *http.Reques
 	}
 
 	return request, nil
+}
+
+func getAndMarshalEndpoints(l *zerolog.Logger, db *sql.DB, w http.ResponseWriter) ([]data.Endpoint, http.ResponseWriter) {
+	m, err := data.GetEndpoints(l, db)
+	if err != nil {
+		http.Error(w, "Cannot query database for endpoints table", http.StatusInternalServerError)
+		return nil, w
+	}
+
+	var rows []data.Endpoint
+	for k, v := range m {
+		rows = append(rows, data.Endpoint{Endpoint: k, URL: v})
+	}
+
+	return rows, w
 }

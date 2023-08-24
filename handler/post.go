@@ -6,6 +6,7 @@ import (
 	"io"
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/joshuabl97/urlShort/data"
@@ -73,6 +74,42 @@ func (h *HandlerHelper) CreateShortcut(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// handles URL shortening requests taking in just a url from within the request body
+// this is handled via an HTML form
+func (h *HandlerHelper) WebUrlGen(w http.ResponseWriter, r *http.Request) {
+
+	// read the request body
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Error reading request body", http.StatusInternalServerError)
+		return
+	}
+
+	url := strings.TrimPrefix(string(body), "originalUrl=")
+	if url != "" {
+		// check to see if the endpoint already exists
+		exists, _ := data.CheckEndpoint(h.l, h.db, url)
+		if exists {
+			h.l.Error().Str("Endpoint", url).Msg("Endpoint already exists")
+			h.Homepage(w, r)
+		}
+
+		// implement a skipto feature where it checks if a random string is already in the db maybe?
+		endpoint := generateRandomString(5)
+
+		// adds the new shortcut to the database
+		h.db, err = data.AddEndpoint(h.db, endpoint, url)
+		if err != nil {
+			h.l.Error().Err(err).Msg("Failed to add request body to DB")
+			h.Homepage(w, r)
+		}
+
+		h.Homepage(w, r)
+	} else {
+		h.Homepage(w, r)
+	}
+}
+
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
@@ -83,21 +120,4 @@ func generateRandomString(length int) string {
 		b[i] = charset[seededRand.Intn(len(charset))]
 	}
 	return string(b)
-}
-
-func (h *HandlerHelper) OGwebURL(w http.ResponseWriter, r *http.Request) {
-
-	// Read the request body
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		http.Error(w, "Error reading request body", http.StatusInternalServerError)
-		return
-	}
-
-	// Print the request body
-	fmt.Println("Request Body:", string(body))
-
-	// Respond to the client
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Request body printed"))
 }

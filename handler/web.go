@@ -10,20 +10,20 @@ type Product struct {
 	URL      string
 }
 
-func Homepage(w http.ResponseWriter, r *http.Request) {
-	products := []Product{
-		{"/test", "https://www.google.com"},
-		{"/example", "https://www.example.com"},
-		// Add more products as needed
-	}
+// serves the homepage
+func (h *HandlerHelper) Homepage(w http.ResponseWriter, r *http.Request) {
+	// returns all the endpoints as []data.Endpoint
+	shortcuts, w := getAndMarshalEndpoints(h.l, h.db, w)
 
+	// parse html template
 	tmpl, err := template.ParseFiles("home.html")
 	if err != nil {
-		http.Error(w, "sometin", http.StatusInternalServerError)
+		http.Error(w, "Unable to generate HTML", http.StatusInternalServerError)
 		return
 	}
 
-	err = tmpl.Execute(w, products)
+	// construct/inject html file using template and shortcuts object
+	err = tmpl.Execute(w, shortcuts)
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
