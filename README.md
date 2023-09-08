@@ -1,5 +1,16 @@
 # URL Shortener
 
+URL Shortener is a simple web app and REST API based microservice designed to make it easy for users to shorten URLs using their custom domain name. Simply add a URL to the site and use the endpoint generated to be redirected. (Table of Contents below)
+
+![webapp](/siteScreenshot.png)
+
+Going to an endpoint that is stored in the SQLite db will redirect the user to that URL.
+
+For example, the below would redirect a user to example.com based on the above screenshot where example2 has example.com stored as the URL.
+
+![redirect example](/redirectScreenshot.png)
+
+
 # Table of Contents
 - [Usage](#usage)
   - [Start the server](#start-the-server-on-localhost8080)
